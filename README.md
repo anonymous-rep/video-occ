@@ -15,8 +15,8 @@ source <your_home_dir>/.virtualenvs/CTx/bin/activate
 ### Clone the project and install requirements
 
 ```
-git clone https://github.com/shroglck/CTx.git
-cd CTx
+git clone https://github.com/anonymous-rep/video-occ.git
+cd video-occ
 pip install -r requirements.txt
 ```
 
@@ -37,27 +37,28 @@ python compose_tester.py
 ## Initializing CTx-net Parameters
 
 CTx-Net parameters (vMF kernels and mixture models ) are initialized by clustering the feature vectors
-
-```
-python vc_cluster_fine.py
-``` 
-
 Furthermore, we initialize the mixture models by EM-type learning.
 The initial cluster assignment for the EM-type learning is computed based on the similarity of the vMF encodings of the training images.
-To compute the similarity matrices use:
+
+To train the model 
  
 ```
-python simmat_finer.py
+python train.py --Dataset {Dataset Name} --chechpoint_path {path to save the checkpoint} \
+--simmat_save_name {Directory to save similarity matrix} \
+--mix_model_save {Directory to save mixture model weights} \
+--dict_name {Directory to save vmf kernels} \
+--data_path {Path to Dataset}
 ``` 
+##Testing##
+To test a model on UCF-101-O or UCF-101-Y-OCC
+```
+python test_with_occ.py --data_path {data path} --arch {model name} --checkpoint {path to checkpoint}
+```
+To test a model on K-400-O
+```
+python kin_train.py --arch {model_name} --data_path {data_path}
+```
 
-Similarly the mixture model weights can be learned using
-```
-python mix_model_lear_finer.py
-```
-To train the model
-```
-python compose_trainer_2.py
-```
 
 
 ## Acknowledgement 
